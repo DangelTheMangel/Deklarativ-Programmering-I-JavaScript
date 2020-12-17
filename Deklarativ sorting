@@ -1,0 +1,60 @@
+let gamerliste = [1,2,3,4,5,6,7,8,9,10]
+
+function setup() {
+  createCanvas(500, 500);
+  fill(random(0,255),random(0,255),random(0,255))
+  drawDiagram(gamerliste)
+  gamerliste.forEach(element => console.log(element));
+  console.log("\n          -           \n")
+  shuffleList(gamerliste)
+  gamerliste.forEach(element => console.log(element));
+Sort(gamerliste)
+  
+}
+
+function draw() {
+  background(220);
+ drawDiagram(gamerliste)
+    
+    
+}
+
+function shuffleList(array){
+    for (var i = array.length - 1; i > 0; i--) {
+        var ran = Math.floor(Math.random() * (i + 1));
+      
+        var int = array[ran];
+        var jnt = array[i];
+      
+        array[i] = int;
+        array[ran]= jnt;
+    }
+}
+
+function Sort(arr){
+  var minIdx, temp, 
+      len = arr.length;
+  for(var i = 0; i < len; i++){
+    minIdx = i;
+    for(var  j = i+1; j<len; j++){
+       if(arr[j]<arr[minIdx]){
+          minIdx = j;
+       }
+    }
+    temp = arr[i];
+    arr[i] = arr[minIdx];
+    arr[minIdx] = temp;
+  }
+  
+}
+  
+
+function drawDiagram(gamerliste){
+  gamerliste.filter(function(current,index,arr){
+    
+    rect(height/gamerliste.length*index,height,height/gamerliste.length,-                gamerliste[index]*height/(gamerliste.length));
+    
+  });
+  
+
+}
