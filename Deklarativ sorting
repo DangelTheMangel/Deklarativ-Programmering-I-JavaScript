@@ -1,90 +1,92 @@
-let gamerliste = [1,2,3,4,5,6,7,8,9,10]
+let gamerlist = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 function setup() {
   createCanvas(500, 500);
-  fill(random(0,255),random(0,255),random(0,255))
-  drawDiagram(gamerliste)
-  gamerliste.forEach(element => console.log(element));
-  console.log("\n          -           \n")
-  shuffleListDeklarativ(gamerliste)
- /* gamerliste.forEach(element => console.log(element));
-Sort(gamerliste)*/
+  fill(random(0, 255), random(0, 255), random(0, 255))
+  drawDiagram(gamerlist)
+
+  //gamerliste.forEach(element => console.log(element));
+  //console.log("\n          -           \n")
   
+  gamerlist = shuffleListDeclarative(gamerlist);
+  console.log("før "+gamerlist)
+  console.log(findMin(gamerlist));
+  let sortedList = mySortDeclarative(gamerlist);
+  console.log("efter "+sortedList)
 }
 
 function draw() {
   background(220);
- drawDiagram(gamerliste)
-    
-    
+  drawDiagram(gamerlist)
 }
 
-function shuffleListDeklarativ(array){
-    array.forEach(function(index){
-       var ran = Math.floor(Math.random() * (index + 1));
-      
-        var int = array[ran];
-        var jnt = array[index];
-      
-        array[index] = int;
-        array[ran]= jnt;
-    })
-
-}
-
-function shuffleList(array){
-    for (var i = array.length - 1; i > 0; i--) {
-        var ran = Math.floor(Math.random() * (i + 1));
-      
-        var int = array[ran];
-        var jnt = array[i];
-      
-        array[i] = int;
-        array[ran]= jnt;
-    }
-}
-
-function SortDeklarativ(arr){
-  var minIdx, temp, 
-      len = arr.length;
-  for(var i = 0; i < len; i++){
-    minIdx = i;
-    for(var  j = i+1; j<len; j++){
-       if(arr[j]<arr[minIdx]){
-          minIdx = j;
-       }
-    }
-    temp = arr[i];
-    arr[i] = arr[minIdx];
-    arr[minIdx] = temp;
-  }
-  
-}
-
-function Sort(arr){
-  var minIdx, temp, 
-      len = arr.length;
-  for(var i = 0; i < len; i++){
-    minIdx = i;
-    for(var  j = i+1; j<len; j++){
-       if(arr[j]<arr[minIdx]){
-          minIdx = j;
-       }
-    }
-    temp = arr[i];
-    arr[i] = arr[minIdx];
-    arr[minIdx] = temp;
-  }
-  
-}
-  
-
-function drawDiagram(gamerliste){
-  gamerliste.filter(function(current,index,arr){
-    
-    rect(height/gamerliste.length*index,height,height/gamerliste.length,-                gamerliste[index]*height/(gamerliste.length));
-    
+function shuffleListDeclarative(numArr = []) {
+  numArr.map((currentValue, currentIndex, array) => {
+    //console.log("ci " + currentIndex);
+    //console.log("array " + array);
+    let randIdx = Math.floor(Math.random() * array.length);
+    [array[currentIndex], array[randIdx]] = [array[randIdx], array[currentIndex]];
   });
   
+  console.log(numArr);
+  return numArr;
+}
+
+function mySortDeclarative(arr) {
+  arr.forEach(function(el, idx) {
+                console.log("Sort " + idx + " " + el)
+    
+                let minIdx = idx + 1 + findMin(arr.slice(idx +1));
+
+                if(el > arr[minIdx]) {
+                  console.log("Swap " + el + " " + idx + " " + minIdx);
+                  
+                  [arr[minIdx], arr[idx]] = [arr[idx], arr[minIdx]];
+                }
+              });
+  return arr;
+
+}
+
+function findMin(arr) {
+  return arr.reduce((minIdx, curVal, curIdx, myArr) => curVal < myArr[minIdx] ? curIdx : minIdx, 0);
+}
+
+function shuffleList(array) {
+  for (var i = array.length - 1; i > 0; i--) {
+    var ran = Math.floor(Math.random() * (i + 1));
+
+    var int = array[ran];
+    var jnt = array[i];
+
+    array[i] = int;
+    array[ran] = jnt;
+  }
+}
+
+function mySort(arr) {
+  var minIdx, temp, len = arr.length;
+  
+  for (var i = 0; i < len; i++) {
+    minIdx = i;
+    for (var j = i + 1; j < len; j++) {
+      if (arr[j] < arr[minIdx]) {
+        minIdx = j;
+      }
+    }
+    temp = arr[i];
+    arr[i] = arr[minIdx];
+    arr[minIdx] = temp;
+  }
+
+}
+
+
+function drawDiagram(gamerliste) {
+  gamerliste.filter(function(current, index, arr) {
+
+    rect(height / gamerliste.length * index, height, height / gamerliste.length, -gamerliste[index] * height / (gamerliste.length));
+  });
+
 
 }
