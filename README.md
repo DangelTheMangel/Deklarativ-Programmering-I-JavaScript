@@ -5,4 +5,4 @@ Det er en opgave med fomål:
   •	Kendskab til funktioner og variabler i Java-script 
   •	Kendskab til deklarative array metoder i JS
 
-jeg har lavet det med bileotiket p5.js
+vi har lavet det med bileotiket p5.js
